@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Погода</title>
+
+    <script src="eel.js"></script>
+    <link rel="icon" type="image/png" href="weather-icon.png" />
+  </head>
+  <body>
+    <style>
+      body {
+        background-image: url("fon.bmp");
+      }
+      #location {
+        display: block;
+        border: none;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 10px;
+        padding: 20px;
+        color: white;
+        outline: none;
+        width: 100%;
+        font-size: 30px;
+        font-weight: 300px;
+      }
+      #location::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+      #show {
+        display: block;
+        border: none;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 10px;
+        padding: 20px;
+        color: white;
+        outline: none;
+        width: 100%;
+        font-size: 30px;
+        font-weight: 300px;
+        background: #0099f7; /* fallback for old browsers */
+        background: -webkit-linear-gradient(
+          to right,
+          #f11712,
+          #0099f7
+        ); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(
+          to right,
+          #f11712,
+          #0099f7
+        ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        text-transform: uppercase;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      #show:hover {
+        opacity: 0.9;
+      }
+    </style>
+    <input
+      id="location"
+      type="text"
+      placeholder="Ведіть назву країни міста..."
+      value="Нью-Йорк, США"
+    />
+    <br />
+    <button id="show">Дізнатися погоду</button>
+
+    <div class="info"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      async function display_weather() {
+        let place = document.getElementById("location").value;
+
+        let res = await eel.get_weather(place)();
+        document.getElementById("info").innerHTML = res;
+      }
+      jQuery("#show").on("click", function () {
+        display_weather();
+      });
+    </script>
+  </body>
+</html>
